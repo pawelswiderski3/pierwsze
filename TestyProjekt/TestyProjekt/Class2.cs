@@ -9,18 +9,24 @@ namespace TestyProjekt
 {
     public class MatmaTest
     {
-        [Fact]
-        //  test ok//
-        public void Add_returns_sum_of_given_valuses()
+        [Theory]
+        [InlineData(10,20,30)]
+        [InlineData(1,2,3)]
+        [InlineData(4,8,12)]
+        [InlineData(-1,-2,-3)]
+        [InlineData(500,1000,1500)]
+        [InlineData(455,200,655)]
+        
+        public void TheoryExample(double x, double y, double expected)
         {
             // arrange
             var math = new Matma();
 
             // act
-            var result = math.Add(10, 20);
+            var result = math.Add(x, y);
 
             // assert
-            Assert.Equal(30, result);
+            Assert.Equal(expected, result);
 
         }
 
