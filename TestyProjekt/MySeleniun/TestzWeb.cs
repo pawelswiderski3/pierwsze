@@ -35,7 +35,7 @@ namespace SeleniumTests
 
         {
 
-           driver = new ChromeDriver();
+            driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
 
             baseURL = "https://www.google.pl/";
@@ -45,10 +45,60 @@ namespace SeleniumTests
         }
 
 
-        
 
 
 
+
+
+        //   [Fact]
+
+
+        //   public void TheExampleTest()
+
+        //  {
+
+        //  driver.Navigate().GoToUrl(baseURL);
+
+        //  driver.FindElement(By.Id("lst-ib")).Clear();
+        //   driver.FindElement(By.Id("lst-ib")).SendKeys("code sprinters");
+        //    driver.FindElement(By.Id("lst-ib")).Submit();
+
+        //    driver.FindElement(By.LinkText("Code Sprinters -")).Click();
+
+        //    var element = driver.FindElement(By.LinkText("Poznaj nasze podejście"));
+
+        //     Assert.NotNull(element);
+
+
+        //      var elements = driver.FindElements(By.LinkText("Poznaj nasze podejście"));
+
+        //     Assert.Single(elements);
+        //
+
+        //     Thread.Sleep(3000);
+        //     WaitForClickable(By.LinkText("Akceptuję"), 1);
+
+        //     driver.FindElement(By.LinkText("Akceptuję")).Click();
+        //     WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+        //     wait.Until(condition: ExpectedConditions.InvisibilityOfElementWithText(By.LinkText("Akceptuję")));
+        //   ;
+
+        //     WaitForClickable(By.LinkText("Poznaj nasze podejście"), 2);
+
+        //driver.FindElement(By.LinkText("Poznaj nasze podejście")).Click();
+
+
+        //   Assert.NotNull(elements);
+
+        //     protected void waitForClickable(By by, int seconds)
+
+        //    {
+
+        //       WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(seconds));
+
+        //        wait.Until(ExpectedConditions.ElementToBeClickable(by));
+
+        //    }
 
         [Fact]
 
@@ -59,50 +109,59 @@ namespace SeleniumTests
             driver.Navigate().GoToUrl(baseURL);
 
             driver.FindElement(By.Id("lst-ib")).Clear();
+
             driver.FindElement(By.Id("lst-ib")).SendKeys("code sprinters");
             driver.FindElement(By.Id("lst-ib")).Submit();
-
             driver.FindElement(By.LinkText("Code Sprinters -")).Click();
 
             var element = driver.FindElement(By.LinkText("Poznaj nasze podejście"));
-
             Assert.NotNull(element);
 
-
-            var elements = driver.FindElements(By.LinkText("Poznaj nasze podejście"));
-
-            Assert.Single(elements);
-
-           
-            Thread.Sleep(3000);
-            WaitForClickable(By.LinkText("Akceptuję"), 1);
+            var elemnets = driver.FindElements(By.LinkText("Poznaj nasze podejście"));
+            Assert.Single(elemnets);
 
             driver.FindElement(By.LinkText("Akceptuję")).Click();
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
-            wait.Until(condition: ExpectedConditions.InvisibilityOfElementWithText(By.LinkText("Akceptuję")));
-            ;
+            wait.Until(condition: ExpectedConditions.InvisibilityOfElementWithText(By.LinkText("Akceptuję"), "Akceptuję"));
 
-            WaitForClickable(By.LinkText("Poznaj nasze podejście"), 2);
+            WaitForClickable(By.LinkText("Poznaj nasze podejście"), 5);
 
             driver.FindElement(By.LinkText("Poznaj nasze podejście")).Click();
 
+            Assert.Contains("WIEDZA NA PIERWSZYM MIEJSCU", driver.PageSource);
 
-            Assert.NotNull(elements);
 
-            protected void waitForClickable(By by, int seconds)
 
-            {
 
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(seconds));
 
-                wait.Until(ExpectedConditions.ElementToBeClickable(by));
 
-            }
 
-        //private void WaitForClickable(By by, int v)
-        {
-      //      throw new NotImplementedException();
         }
+        protected void WaitForClickable(By by, int seconds)
+
+        {
+
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(seconds));
+
+            wait.Until(ExpectedConditions.ElementToBeClickable(by));
+
+        }
+
+
+
+        protected void waitForElementPresent(IWebElement by, int seconds)
+
+        {
+
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(seconds));
+
+            wait.Until(ExpectedConditions.ElementToBeClickable(by));
+        }
+    }
+                //private void WaitForClickable(By by, int v)
+                
+      //      throw new NotImplementedException();
+        
 
         //private bool IsElementPresent(By by)
 
@@ -231,3 +290,4 @@ namespace SeleniumTests
             throw new NotImplementedException();
         }
     }
+
