@@ -4,230 +4,390 @@ using System.Text;
 
 using OpenQA.Selenium;
 
-using OpenQA.Selenium.Firefox;
-
 using OpenQA.Selenium.Support.UI;
 
 using Xunit;
 
 using OpenQA.Selenium.Chrome;
-using System.Threading;
+
+using System.Linq;
+
+using System.Collections.ObjectModel;
+
 
 namespace SeleniumTests
 
+
+
 {
 
-    public class Example : IDisposable
+
+
+    public class SeleniumExample : IDisposable
 
     {
 
         private const string SearchTextBoxId = "lst-ib";
-        private const string Google = "https://www.google.pl";
-        private const string SearchQuery = "Code Sprinters";
-        private const string CodeSprintersPageTitle = "Code Sprinters -";
+
+
+
+        private const string Google = "https://www.google.com";
+
+
+
+        private const string PageTitle = "Code Sprinters -";
+
+
+
+        private const string TextToSearch = "code sprinters";
+
+
+
+        private const string LinkTextToFind = "Poznaj nasze podejście";
+
+
+
+        private const string LinkTextToFindAcceptance = "Akceptuję";
+
+
 
         private IWebDriver driver;
+
+
+
         private StringBuilder verificationErrors;
 
 
-
-        public Example()
+        public SeleniumExample()
 
         {
 
             driver = new ChromeDriver();
+
+
+
             driver.Manage().Window.Maximize();
+
+
+
             driver.Manage().Timeouts()
+
+
+
                 .ImplicitWait = TimeSpan.FromMilliseconds(100);
+
+
+
             verificationErrors = new StringBuilder();
 
-        }
 
-        public void Dispose()
-        {
-            driver.Quit();
+
         }
 
         [Fact]
 
-        public void NavigateToCodeSprinterSitetExample()
+
+
+        public void NavigatingToCodeSprintersSite()
+
+
 
         {
 
+
+
             GoToGoogle();
-            Search(SearchQuery);
 
-            GoToSearchResultByPageTitle(CodeSprintersPageTitle);
+            Search(TextToSearch);
+
+            GoToSearchResultByPageTitle(PageTitle);
 
 
-            var element = driver.FindElement(By.LinkText("Poznaj nasze podejście"));
+
+            Assert.Single(GetElementsByLinkText(LinkTextToFind));
+
+            Assert.Single(GetElementsByLinkText(LinkTextToFindAcceptance));
+
+
+
+            var element = driver.FindElement(By.LinkText(LinkTextToFind));
+
+
+
             Assert.NotNull(element);
 
-            var elemnets = driver.FindElements(By.LinkText("Poznaj nasze podejście"));
-            Assert.Single(elemnets);
+
+            var elements = driver.FindElements(By.LinkText("Poznaj nasze podejście"));
+
+
+
+            Assert.Single(elements);
+
 
             driver.FindElement(By.LinkText("Akceptuję")).Click();
 
+
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(11));
+
+
+
             wait.Until(ExpectedConditions.InvisibilityOfElementWithText(By.LinkText("Akceptuję"), "Akceptuję"));
+
 
             WaitForClickable(By.LinkText("Poznaj nasze podejście"), 5);
 
+
             driver.FindElement(By.LinkText("Poznaj nasze podejście")).Click();
+
+
+            // ver 1
+
+
 
             Assert.Contains("WIEDZA NA PIERWSZYM MIEJSCU", driver.PageSource);
 
 
 
 
+            // ver 2
 
 
+
+            Assert.Single(driver.FindElements(By.TagName("h2"))
+
+
+
+                .Where(tag => tag.Text == "WIEDZA NA PIERWSZYM MIEJSCU"));
 
 
 
         }
 
-        private void Search(string Query)
+
+
+
+        private ReadOnlyCollection<IWebElement> GetElementsByLinkText(string link)
+
+
+
         {
+
+
+
+            return driver.FindElements(By.LinkText(link));
+
+
+
+        }
+
+
+
+        private void Search(string query)
+
+
+
+        {
+
+
+
             var searchBox = GetSearchBox();
+
+
+
             searchBox.Clear();
-            searchBox.SendKeys(Query);
+
+
+
+            searchBox.SendKeys(query);
+
+
+
             searchBox.Submit();
+
+
+
         }
 
-        private void GoToSearchResultByPageTitle(string CodeSprintersPageTitle)
+
+
+
+
+
+
+
+
+        private void GoToSearchResultByPageTitle(string title)
+
+
+
         {
-            driver.FindElement(By.LinkText(CodeSprintersPageTitle)).Click();
+
+
+
+            driver.FindElement(By.LinkText(title)).Click();
+
+
+
         }
+
+
+
+
+
+
+
+
 
         private void GoToGoogle()
+
+
+
         {
+
+
+
             driver.Navigate().GoToUrl(Google);
+
+
+
         }
 
+
+
+
+
+
+
+
+
         private IWebElement GetSearchBox()
+
+
+
         {
+
+
+
             return driver.FindElement(By.Id(SearchTextBoxId));
+
+
+
         }
+
+
+
+
+
+
+
+
 
         protected void WaitForClickable(By by, int seconds)
 
+
+
         {
+
+
 
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(seconds));
 
+
+
             wait.Until(ExpectedConditions.ElementToBeClickable(by));
 
+
+
         }
+
+
+
+
+
+
 
 
 
         protected void waitForElementPresent(IWebElement by, int seconds)
 
+
+
         {
+
+
 
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(seconds));
 
+
+
             wait.Until(ExpectedConditions.ElementToBeClickable(by));
+
+
+
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public void Dispose()
+
+
+
+        {
+
+
+
+            try
+
+
+
+            {
+
+
+
+                driver.Quit();
+
+
+
+            }
+
+
+
+            catch (Exception)
+
+
+
+            {
+
+
+
+            }
+
+
+
+            Assert.Equal("", verificationErrors.ToString());
+
+
+
+        }
+
+
+
     }
+
+
+
 }
-                //private void WaitForClickable(By by, int v)
-                
-      //      throw new NotImplementedException();
-        
-
-        //private bool IsElementPresent(By by)
-
-        //{
-
-        //    try
-
-        //    {
-
-        //        driver.FindElement(by);
-
-        //        return true;
-
-        //    }
-
-        //    catch (NoSuchElementException)
-
-        //    {
-
-        //        return false;
-
-        //    }
-
-        //}
-
-
-
-        //private bool IsAlertPresent()
-
-        //{
-
-        //    try
-
-        //    {
-
-        //        driver.SwitchTo().Alert();
-
-        //        return true;
-
-        //    }
-
-        //    catch (NoAlertPresentException)
-
-        //    {
-
-        //        return false;
-
-        //    }
-
-        //}
-
-
-
-        //private string CloseAlertAndGetItsText()
-
-        //{
-
-        //    try
-
-        //    {
-
-        //        IAlert alert = driver.SwitchTo().Alert();
-
-        //        string alertText = alert.Text;
-
-        //        if (acceptNextAlert)
-
-        //        {
-
-        //            alert.Accept();
-
-        //        }
-
-        //        else
-
-        //        {
-
-        //            alert.Dismiss();
-
-        //        }
-
-        //        return alertText;
-
-        //    }
-
-        //    finally
-
-        //    {
-
-        //        acceptNextAlert = true;
-
-        //    }
-
-        //}
-
