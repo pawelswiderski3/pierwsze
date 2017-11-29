@@ -172,105 +172,47 @@ namespace SeleniumTests
 
         {
 
-
-
             return driver.FindElements(By.LinkText(link));
 
-
-
         }
-
-
 
         private void Search(string query)
 
-
-
         {
-
-
 
             var searchBox = GetSearchBox();
 
-
-
             searchBox.Clear();
-
-
 
             searchBox.SendKeys(query);
 
-
-
             searchBox.Submit();
 
-
-
         }
-
-
-
-
-
-
-
-
 
         private void GoToSearchResultByPageTitle(string title)
 
-
-
         {
-
-
 
             driver.FindElement(By.LinkText(title)).Click();
 
-
-
         }
-
-
-
-
-
-
-
 
 
         private void GoToGoogle()
 
-
-
         {
 
-
-
             driver.Navigate().GoToUrl(Google);
-
-
 
         }
 
 
-
-
-
-
-
-
-
         private IWebElement GetSearchBox()
-
-
 
         {
 
-
-
             return driver.FindElement(By.Id(SearchTextBoxId));
-
-
 
         }
 

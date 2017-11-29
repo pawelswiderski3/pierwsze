@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestyProjekt", "TestyProjek
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySeleniun", "MySeleniun\MySeleniun.csproj", "{6EAC196D-D3D8-4ED6-B0A5-0D465E6C2698}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewFolder1", "NewFolder1", "{842FBA0B-47E5-4835-B786-520925141E78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test Page Object", "Test Page Object\Test Page Object.csproj", "{35348653-2D12-495D-B6A0-E826D97D7067}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +25,16 @@ Global
 		{6EAC196D-D3D8-4ED6-B0A5-0D465E6C2698}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6EAC196D-D3D8-4ED6-B0A5-0D465E6C2698}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6EAC196D-D3D8-4ED6-B0A5-0D465E6C2698}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35348653-2D12-495D-B6A0-E826D97D7067}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35348653-2D12-495D-B6A0-E826D97D7067}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35348653-2D12-495D-B6A0-E826D97D7067}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35348653-2D12-495D-B6A0-E826D97D7067}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{35348653-2D12-495D-B6A0-E826D97D7067} = {842FBA0B-47E5-4835-B786-520925141E78}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {64BF4BF9-52CA-4223-9DF1-B094BD51BCC6}
