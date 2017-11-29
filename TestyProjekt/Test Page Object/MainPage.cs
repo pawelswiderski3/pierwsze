@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Test_Page_Object
 {
@@ -10,6 +11,12 @@ namespace Test_Page_Object
         internal static void GoTo()
         {
             Browser.NavigateTo(Url);
+        }
+
+        internal static void OpenFirstNote()
+        {
+            var element = Browser.FindByXpath("//article/header");
+            element.First().Click();
         }
     }
 }

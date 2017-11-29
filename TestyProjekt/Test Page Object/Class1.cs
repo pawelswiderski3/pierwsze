@@ -7,18 +7,32 @@ using Xunit;
 
 namespace Test_Page_Object
 {
-    public class AddingCommentsTest
+    public class AddingCommentsTest : IDisposable
     {
         [Fact]
         public void CanAddCommentToTheBlogNote()
         {
             MainPage.GoTo();
 
-            //wejdź na strone bloga
-            //otwórz pierwszą notkę
+            MainPage.OpenFirstNote();
+            NotePage.AddComment(new Comment
+            {
+                Text = "lorem ipsum dolor sit",
+                Mail = "test@test",
+                User = "białko"
+
+            });
+            
             //dodaj komentarz
             //sprawdź czy komentarz się dodał
 
+           
+
+        }
+
+        public void Dispose()
+        {
+            Browser.Close();
         }
     }
 }
