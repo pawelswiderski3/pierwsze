@@ -1,22 +1,38 @@
-﻿using System;
-using System.Linq;
+﻿using PageObjcectTests;
 
-namespace Test_Page_Object
+using System;
+
+using System.Linq;
+using Test_Page_Object;
+
+namespace PageObjectTests
+
 {
+
     internal class MainPage
 
     {
+
         private static string Url = "https://autotestdotnet.wordpress.com/";
 
-        internal static void GoTo()
+        internal static void Open()
+
         {
+
             Browser.NavigateTo(Url);
+
         }
 
         internal static void OpenFirstNote()
+
         {
-            var element = Browser.FindByXpath("//article/header");
-            element.First().Click();
+
+            var elements = Browser.FindByXpath("//article/header");
+
+            elements.First().Click();
+
         }
+
     }
+
 }

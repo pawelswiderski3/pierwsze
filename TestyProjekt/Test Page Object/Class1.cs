@@ -1,38 +1,66 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PageObjcectTests;
+
+using System;
+using Test_Page_Object;
 using Xunit;
 
-namespace Test_Page_Object
+
+
+namespace PageObjectTests
+
 {
-    public class AddingCommentsTest : IDisposable
+
+    public class AddingBlogCommentsTests : IDisposable
+
     {
+
         [Fact]
+
         public void CanAddCommentToTheBlogNote()
+
         {
-            MainPage.GoTo();
+
+            MainPage.Open();
+
+
+
+            var comment = new Comment
+
+            {
+
+                Text = "Nie poddawaj się",
+
+                Mail = Guid.NewGuid() + "@test.com",
+
+                User = Guid.NewGuid().ToString()
+
+            };
+
+
 
             MainPage.OpenFirstNote();
-            NotePage.AddComment(new Comment
-            {
-                Text = "lorem ipsum dolor sit",
-                Mail = "test@test",
-                User = "białko"
 
-            });
-            
-            //dodaj komentarz
-            //sprawdź czy komentarz się dodał
+            NotePage.AddComment(comment);
 
-           
+
+
+            Assert.Equal(1, NotePage.CommentsFound(comment));
+
+            Assert.Single(NotePage.GetComments(comment));
+
+            Assert.True(NotePage.CommentExists(comment));
 
         }
+
 
         public void Dispose()
+
         {
+
             Browser.Close();
+
         }
+
     }
+
 }
